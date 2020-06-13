@@ -11,6 +11,10 @@ export const AddTransaction = () => {
 	function findMax(transIDs) {
 		let max = transIDs[0];
 
+		if (transIDs[0] == undefined) {
+			return 1;
+		}
+
 		for (let id of transIDs) {
 			max = id > max ? id : max;
 		}
@@ -45,7 +49,6 @@ export const AddTransaction = () => {
 				<div className="htmlForm-control">
 					<label htmlFor="amount">
 						Amount <br />
-						(negative - expense, positive - income)
 					</label>
 					<input
 						type="number"
