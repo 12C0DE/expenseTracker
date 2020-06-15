@@ -3,7 +3,24 @@ import AppReducer from './AppReducer';
 
 //Initial State
 const initialState = {
-	transactions: []
+	transactions: [],
+	categories: [
+		{
+			id: 1,
+			value: 1,
+			text: 'fss'
+		},
+		{
+			id: 2,
+			value: 2,
+			text: 'gdss'
+		},
+		{
+			id: 3,
+			value: 3,
+			text: 'gvbv'
+		}
+	]
 };
 
 //Create context
@@ -29,7 +46,9 @@ export const GlobalProvider = ({ children }) => {
 	}
 
 	return (
-		<GlobalContext.Provider value={{ transactions: state.transactions, delTransaction, addTransaction }}>
+		<GlobalContext.Provider
+			value={{ transactions: state.transactions, categories: state.categories, delTransaction, addTransaction }}
+		>
 			{children}
 		</GlobalContext.Provider>
 	);
