@@ -1,47 +1,66 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Category } from './Category';
 import { GlobalContext } from '../Context/GlobalState';
 
 export const Categories = ({ category }) => {
 	const [ text, setText ] = useState('');
 	const [ active, setActive ] = useState(false);
-	const { categories } = useContext(GlobalContext);
-	const { addCategory } = useContext(GlobalContext);
+	const { categories, addCategory, selectCategory, selectedCategory } = useContext(GlobalContext);
 	const ids = categories.map((category) => category.id);
 
 	let btnStyle = 'btn';
 	btnStyle += !active ? ' disabled' : '';
 
+	const enableBtn = (e) => {
+		if (e.target.value != '') {
+			setActive(true);
+		} else {
+			setActive(false);
+		}
+		setText(e.target.value);
+	};
+
 	function findMax(catIDs) {
-		let max = catIDs[0];
+		let maxID = catIDs[0];
 
 		if (catIDs[0] == undefined) {
 			return 1;
 		}
 
 		for (let id of catIDs) {
-			max = id > max ? id : max;
+			maxID = id > maxID ? id : maxID;
 		}
-		return max + 1;
+		return maxID + 1;
 	}
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
+		const newID = findMax(ids);
 		const newCat = {
-			id: findMax(ids),
-			value: findMax(ids),
+			id: newID,
+			value: newID,
 			text
 		};
 		addCategory(newCat);
 		setText('');
 		setActive(false);
+		selectCategory(newCat.id);
 	};
 
 	return (
 		<React.Fragment>
 			<h3>Select Category</h3>
-			<select>{categories.map((category) => <Category key={category.id} category={category} />)}</select>
+			<select
+				value={selectedCategory}
+				onChange={(e) => {
+					selectCategory(e.target.value);
+				}}
+			>
+				{categories
+					.sort((a, b) => (a.text > b.text ? 1 : -1))
+					.map((category) => <Category key={category.id} category={category} />)}
+			</select>
 			<form id="htmlFormCat" onSubmit={onSubmit}>
 				<div className="htmlForm-control">
 					<label htmlFor="text">Add New Category</label>
@@ -50,12 +69,7 @@ export const Categories = ({ category }) => {
 						id="textCat"
 						placeholder="Enter text..."
 						onChange={(e) => {
-							if (e.target.value != '') {
-								setActive(true);
-							} else {
-								setActive(false);
-							}
-							setText(e.target.value);
+							enableBtn(e);
 						}}
 						value={text}
 					/>

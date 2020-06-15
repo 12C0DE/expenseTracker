@@ -15,6 +15,11 @@ export default (state, action) => {
 				...state,
 				categories: [ action.payload, ...state.categories ]
 			};
+		case 'SEL_CAT':
+			return {
+				...state,
+				selectedCategory: action.payload
+			};
 		default:
 			return state;
 	}

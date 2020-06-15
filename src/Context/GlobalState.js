@@ -20,7 +20,8 @@ const initialState = {
 			value: 3,
 			text: 'gvbv'
 		}
-	]
+	],
+	selectedCategory: 1
 };
 
 //Create context
@@ -31,17 +32,17 @@ export const GlobalProvider = ({ children }) => {
 	const [ state, dispatch ] = useReducer(AppReducer, initialState);
 
 	//Actions
-	function delTransaction(id) {
-		dispatch({
-			type: 'DEL_TRANS',
-			payload: id
-		});
-	}
-
 	function addTransaction(transaction) {
 		dispatch({
 			type: 'ADD_TRANS',
 			payload: transaction
+		});
+	}
+
+	function delTransaction(id) {
+		dispatch({
+			type: 'DEL_TRANS',
+			payload: id
 		});
 	}
 
@@ -52,14 +53,23 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
+	function selectCategory(categoryID) {
+		dispatch({
+			type: 'SEL_CAT',
+			payload: categoryID
+		});
+	}
+
 	return (
 		<GlobalContext.Provider
 			value={{
 				transactions: state.transactions,
 				categories: state.categories,
+				selectedCategory: state.selectedCategory,
 				delTransaction,
 				addTransaction,
-				addCategory
+				addCategory,
+				selectCategory
 			}}
 		>
 			{children}
