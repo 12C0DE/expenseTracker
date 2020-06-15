@@ -20,6 +20,11 @@ export default (state, action) => {
 				...state,
 				selectedCategory: action.payload
 			};
+		case 'SHOW_CAT':
+			return {
+				...state,
+				showCategoryAdded: action.payload
+			};
 		default:
 			return state;
 	}

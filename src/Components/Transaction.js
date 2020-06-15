@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { GlobalContext } from '../Context/GlobalState';
 
 export const Transaction = ({ transaction }) => {
-	const { delTransaction } = useContext(GlobalContext);
+	const { delTransaction, toggleCatAdded } = useContext(GlobalContext);
 	const sign = transaction.amount > 0 ? '+' : '-';
 
 	return (
@@ -13,7 +13,13 @@ export const Transaction = ({ transaction }) => {
 				$
 				{Math.abs(transaction.amount)}
 			</span>
-			<button className="delete-btn" onClick={() => delTransaction(transaction.id)}>
+			<button
+				className="delete-btn"
+				onClick={() => {
+					toggleCatAdded(false);
+					delTransaction(transaction.id);
+				}}
+			>
 				x
 			</button>
 		</li>

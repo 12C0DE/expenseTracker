@@ -5,8 +5,7 @@ export const AddTransaction = () => {
 	const [ text, setText ] = useState('');
 	const [ amount, setAmount ] = useState(0);
 	const [ active, setActive ] = useState(false);
-	const { addTransaction } = useContext(GlobalContext);
-	const { transactions } = useContext(GlobalContext);
+	const { addTransaction, transactions, selectedCategory, toggleCatAdded } = useContext(GlobalContext);
 	const ids = transactions.map((transaction) => transaction.id);
 
 	let btnStyle = 'btn';
@@ -25,13 +24,33 @@ export const AddTransaction = () => {
 		return max + 1;
 	}
 
+	const handleAmountChange = (e) => {
+		if (e.target.value != 0) {
+			setActive(true);
+		} else {
+			setActive(false);
+		}
+		toggleCatAdded(false);
+		setAmount(e.target.value);
+	};
+
+	const handleTextChange = (e) => {
+		toggleCatAdded(false);
+		setText(e.target.value);
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
+		if (amount == 0) {
+			return;
+		}
+
 		const newTrans = {
 			id: findMax(ids),
-			text,
-			amount: +amount
+			catID: selectedCategory,
+			amount: +amount,
+			text
 		};
 		addTransaction(newTrans);
 		setText('');
@@ -52,12 +71,7 @@ export const AddTransaction = () => {
 						id="amount"
 						placeholder="Enter amount..."
 						onChange={(e) => {
-							if (e.target.value != '' && e.target.value != 0) {
-								setActive(true);
-							} else {
-								setActive(false);
-							}
-							setAmount(e.target.value);
+							handleAmountChange(e);
 						}}
 						value={amount}
 					/>
@@ -67,7 +81,9 @@ export const AddTransaction = () => {
 							type="text"
 							id="text"
 							placeholder="Enter text..."
-							onChange={(e) => setText(e.target.value)}
+							onChange={(e) => {
+								handleTextChange(e);
+							}}
 							value={text}
 						/>
 					</div>

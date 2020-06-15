@@ -5,8 +5,11 @@ import { GlobalContext } from '../Context/GlobalState';
 export const Categories = ({ category }) => {
 	const [ text, setText ] = useState('');
 	const [ active, setActive ] = useState(false);
-	const { categories, addCategory, selectCategory, selectedCategory } = useContext(GlobalContext);
+	const { categories, addCategory, selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(
+		GlobalContext
+	);
 	const ids = categories.map((category) => category.id);
+	const catText = categories.map((category) => category.text);
 
 	let btnStyle = 'btn';
 	btnStyle += !active ? ' disabled' : '';
@@ -36,6 +39,8 @@ export const Categories = ({ category }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
+		//need to add logic to prevent duplicate entries being added! ******
+
 		const newID = findMax(ids);
 		const newCat = {
 			id: newID,
@@ -43,9 +48,10 @@ export const Categories = ({ category }) => {
 			text
 		};
 		addCategory(newCat);
+		selectCategory(newCat.id);
 		setText('');
 		setActive(false);
-		selectCategory(newCat.id);
+		toggleCatAdded(true);
 	};
 
 	return (
@@ -54,6 +60,7 @@ export const Categories = ({ category }) => {
 			<select
 				value={selectedCategory}
 				onChange={(e) => {
+					toggleCatAdded(false);
 					selectCategory(e.target.value);
 				}}
 			>
@@ -64,11 +71,15 @@ export const Categories = ({ category }) => {
 			<form id="htmlFormCat" onSubmit={onSubmit}>
 				<div className="htmlForm-control">
 					<label htmlFor="text">Add New Category</label>
+					<span className="categoryDiv" hidden={!showCategoryAdded}>
+						<label className=" plus">Category Added!</label>
+					</span>
 					<input
 						type="text"
 						id="textCat"
 						placeholder="Enter text..."
 						onChange={(e) => {
+							toggleCatAdded(false);
 							enableBtn(e);
 						}}
 						value={text}

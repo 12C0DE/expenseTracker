@@ -21,7 +21,8 @@ const initialState = {
 			text: 'gvbv'
 		}
 	],
-	selectedCategory: 1
+	selectedCategory: 1,
+	showCategoryAdded: false
 };
 
 //Create context
@@ -60,16 +61,25 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
+	function toggleCatAdded(isVisible) {
+		dispatch({
+			type: 'SHOW_CAT',
+			payload: isVisible
+		});
+	}
+
 	return (
 		<GlobalContext.Provider
 			value={{
 				transactions: state.transactions,
 				categories: state.categories,
 				selectedCategory: state.selectedCategory,
+				showCategoryAdded: state.showCategoryAdded,
 				delTransaction,
 				addTransaction,
 				addCategory,
-				selectCategory
+				selectCategory,
+				toggleCatAdded
 			}}
 		>
 			{children}

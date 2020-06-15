@@ -40,6 +40,16 @@ h4 {
 	text-transform: uppercase;
 }
 
+.categoryDiv {
+	margin-left: 20px;
+	width: 175px;
+	position: absolute;
+	font-size: .8em;
+	font-weight: bold;
+	color: green;
+	padding-top: 2px;
+}
+
 .inc-exp-container {
 	background-color: #fff;
 	box-shadow: var(--box-shadow);
