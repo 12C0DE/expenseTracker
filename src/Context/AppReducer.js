@@ -10,6 +10,11 @@ export default (state, action) => {
 				...state,
 				transactions: [ action.payload, ...state.transactions ]
 			};
+		case 'ADD_CAT':
+			return {
+				...state,
+				categories: [ action.payload, ...state.categories ]
+			};
 		default:
 			return state;
 	}

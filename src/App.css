@@ -105,6 +105,10 @@ select {
 	width: 100%;
 }
 
+.disabled {
+	background-color: #a7a6ad;
+}
+
 .btn:focus,
 .delete-btn:focus {
 	outline: 0;

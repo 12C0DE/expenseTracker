@@ -45,9 +45,22 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
+	function addCategory(category) {
+		dispatch({
+			type: 'ADD_CAT',
+			payload: category
+		});
+	}
+
 	return (
 		<GlobalContext.Provider
-			value={{ transactions: state.transactions, categories: state.categories, delTransaction, addTransaction }}
+			value={{
+				transactions: state.transactions,
+				categories: state.categories,
+				delTransaction,
+				addTransaction,
+				addCategory
+			}}
 		>
 			{children}
 		</GlobalContext.Provider>

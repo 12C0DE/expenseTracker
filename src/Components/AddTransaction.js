@@ -4,9 +4,13 @@ import { GlobalContext } from '../Context/GlobalState';
 export const AddTransaction = () => {
 	const [ text, setText ] = useState('');
 	const [ amount, setAmount ] = useState(0);
+	const [ active, setActive ] = useState(false);
 	const { addTransaction } = useContext(GlobalContext);
 	const { transactions } = useContext(GlobalContext);
 	const ids = transactions.map((transaction) => transaction.id);
+
+	let btnStyle = 'btn';
+	btnStyle += !active ? ' disabled' : '';
 
 	function findMax(transIDs) {
 		let max = transIDs[0];
@@ -30,6 +34,9 @@ export const AddTransaction = () => {
 			amount: +amount
 		};
 		addTransaction(newTrans);
+		setText('');
+		setActive(false);
+		setAmount(0);
 	};
 
 	return (
@@ -44,7 +51,14 @@ export const AddTransaction = () => {
 						type="number"
 						id="amount"
 						placeholder="Enter amount..."
-						onChange={(e) => setAmount(e.target.value)}
+						onChange={(e) => {
+							if (e.target.value != '' && e.target.value != 0) {
+								setActive(true);
+							} else {
+								setActive(false);
+							}
+							setAmount(e.target.value);
+						}}
 						value={amount}
 					/>
 					<div className="htmlForm-control">
@@ -58,7 +72,7 @@ export const AddTransaction = () => {
 						/>
 					</div>
 				</div>
-				<button className="btn">Add transaction</button>
+				<button className={btnStyle}>Add transaction</button>
 			</form>
 		</React.Fragment>
 	);
