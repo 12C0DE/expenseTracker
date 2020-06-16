@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Category } from './Category';
 import { GlobalContext } from '../Context/GlobalState';
+import { SubmitBtn } from './SubmitBtn';
 
 export const Categories = ({ category }) => {
 	const [ text, setText ] = useState('');
@@ -9,9 +10,6 @@ export const Categories = ({ category }) => {
 		GlobalContext
 	);
 	const ids = categories.map((category) => category.id);
-
-	let btnStyle = 'btn';
-	btnStyle += !active ? ' disabled' : '';
 
 	const enableBtn = (e) => {
 		if (e.target.value !== '') {
@@ -75,7 +73,6 @@ export const Categories = ({ category }) => {
 					</span>
 					<input
 						type="text"
-						id="textCat"
 						placeholder="Enter text..."
 						onChange={(e) => {
 							toggleCatAdded(false);
@@ -84,9 +81,7 @@ export const Categories = ({ category }) => {
 						value={text}
 					/>
 				</div>
-				<button className={btnStyle} disabled={!active}>
-					Add Category
-				</button>
+				<SubmitBtn text="Add Category" active={active} />
 			</form>
 		</React.Fragment>
 	);

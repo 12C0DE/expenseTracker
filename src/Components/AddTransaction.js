@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { SubmitBtn } from './SubmitBtn';
 import { GlobalContext } from '../Context/GlobalState';
 
 export const AddTransaction = () => {
@@ -7,9 +8,6 @@ export const AddTransaction = () => {
 	const [ active, setActive ] = useState(false);
 	const { addTransaction, transactions, selectedCategory, toggleCatAdded } = useContext(GlobalContext);
 	const ids = transactions.map((transaction) => transaction.id);
-
-	let btnStyle = 'btn';
-	btnStyle += !active ? ' disabled' : '';
 
 	function findMax(transIDs) {
 		let max = transIDs[0];
@@ -25,13 +23,13 @@ export const AddTransaction = () => {
 	}
 
 	const handleAmountChange = (e) => {
-		if (e.target.value !== 0) {
+		if (e.target.value !== '0' && e.target.value !== '') {
 			setActive(true);
 		} else {
 			setActive(false);
 		}
-		toggleCatAdded(false);
 		setAmount(e.target.value);
+		toggleCatAdded(false);
 	};
 
 	const handleTextChange = (e) => {
@@ -88,7 +86,7 @@ export const AddTransaction = () => {
 						/>
 					</div>
 				</div>
-				<button className={btnStyle}>Add transaction</button>
+				<SubmitBtn text="Add Transaction" active={active} />
 			</form>
 		</React.Fragment>
 	);

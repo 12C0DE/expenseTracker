@@ -40,7 +40,7 @@ const initialState = {
 			text: 'gvbv'
 		}
 	],
-	selectedCategory: 2,
+	selectedCategory: 1,
 	showCategoryAdded: false
 };
 
