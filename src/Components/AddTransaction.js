@@ -14,7 +14,7 @@ export const AddTransaction = () => {
 	function findMax(transIDs) {
 		let max = transIDs[0];
 
-		if (transIDs[0] == undefined) {
+		if (transIDs[0] === undefined) {
 			return 1;
 		}
 
@@ -25,7 +25,7 @@ export const AddTransaction = () => {
 	}
 
 	const handleAmountChange = (e) => {
-		if (e.target.value != 0) {
+		if (e.target.value !== 0) {
 			setActive(true);
 		} else {
 			setActive(false);
@@ -42,7 +42,7 @@ export const AddTransaction = () => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		if (amount == 0) {
+		if (amount === 0) {
 			return;
 		}
 

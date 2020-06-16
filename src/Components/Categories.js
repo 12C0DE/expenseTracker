@@ -14,7 +14,7 @@ export const Categories = ({ category }) => {
 	btnStyle += !active ? ' disabled' : '';
 
 	const enableBtn = (e) => {
-		if (e.target.value != '') {
+		if (e.target.value !== '') {
 			setActive(true);
 		} else {
 			setActive(false);
@@ -25,7 +25,7 @@ export const Categories = ({ category }) => {
 	function findMax(catIDs) {
 		let maxID = catIDs[0];
 
-		if (catIDs[0] == undefined) {
+		if (catIDs[0] === undefined) {
 			return 1;
 		}
 
