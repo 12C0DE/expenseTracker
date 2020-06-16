@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Category } from './Category';
 import { GlobalContext } from '../Context/GlobalState';
 
@@ -9,13 +9,12 @@ export const Categories = ({ category }) => {
 		GlobalContext
 	);
 	const ids = categories.map((category) => category.id);
-	const catText = categories.map((category) => category.text);
 
 	let btnStyle = 'btn';
 	btnStyle += !active ? ' disabled' : '';
 
 	const enableBtn = (e) => {
-		if (e.target.value != '') {
+		if (e.target.value !== '') {
 			setActive(true);
 		} else {
 			setActive(false);
@@ -26,7 +25,7 @@ export const Categories = ({ category }) => {
 	function findMax(catIDs) {
 		let maxID = catIDs[0];
 
-		if (catIDs[0] == undefined) {
+		if (catIDs[0] === undefined) {
 			return 1;
 		}
 
@@ -48,7 +47,7 @@ export const Categories = ({ category }) => {
 			text
 		};
 		addCategory(newCat);
-		selectCategory(newCat.id);
+		selectCategory(+newCat.id);
 		setText('');
 		setActive(false);
 		toggleCatAdded(true);
@@ -61,7 +60,7 @@ export const Categories = ({ category }) => {
 				value={selectedCategory}
 				onChange={(e) => {
 					toggleCatAdded(false);
-					selectCategory(e.target.value);
+					selectCategory(+e.target.value);
 				}}
 			>
 				{categories

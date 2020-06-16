@@ -3,7 +3,26 @@ import AppReducer from './AppReducer';
 
 //Initial State
 const initialState = {
-	transactions: [],
+	transactions: [
+		{
+			amount: 34,
+			catID: 1,
+			id: 1,
+			text: 'fd'
+		},
+		{
+			amount: 634,
+			catID: 2,
+			id: 2,
+			text: 'hgh'
+		},
+		{
+			amount: 734,
+			catID: 2,
+			id: 3,
+			text: 'ghj'
+		}
+	],
 	categories: [
 		{
 			id: 1,
@@ -21,7 +40,7 @@ const initialState = {
 			text: 'gvbv'
 		}
 	],
-	selectedCategory: 1,
+	selectedCategory: 2,
 	showCategoryAdded: false
 };
 
