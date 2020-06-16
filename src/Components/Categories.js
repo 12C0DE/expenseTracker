@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Category } from './Category';
 import { GlobalContext } from '../Context/GlobalState';
 
@@ -9,7 +9,6 @@ export const Categories = ({ category }) => {
 		GlobalContext
 	);
 	const ids = categories.map((category) => category.id);
-	const catText = categories.map((category) => category.text);
 
 	let btnStyle = 'btn';
 	btnStyle += !active ? ' disabled' : '';
