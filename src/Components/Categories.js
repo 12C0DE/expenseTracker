@@ -47,7 +47,7 @@ export const Categories = ({ category }) => {
 			text
 		};
 		addCategory(newCat);
-		selectCategory(newCat.id);
+		selectCategory(+newCat.id);
 		setText('');
 		setActive(false);
 		toggleCatAdded(true);
@@ -60,7 +60,7 @@ export const Categories = ({ category }) => {
 				value={selectedCategory}
 				onChange={(e) => {
 					toggleCatAdded(false);
-					selectCategory(e.target.value);
+					selectCategory(+e.target.value);
 				}}
 			>
 				{categories
