@@ -4,7 +4,7 @@ import { GlobalContext } from '../Context/GlobalState';
 
 export const AddTransaction = () => {
 	const [ text, setText ] = useState('');
-	const [ amount, setAmount ] = useState(0);
+	const [ amount, setAmount ] = useState('');
 	const [ active, setActive ] = useState(false);
 	const { addTransaction, transactions, selectedCategory, toggleCatAdded } = useContext(GlobalContext);
 	const ids = transactions.map((transaction) => transaction.id);
@@ -53,7 +53,7 @@ export const AddTransaction = () => {
 		addTransaction(newTrans);
 		setText('');
 		setActive(false);
-		setAmount(0);
+		setAmount('');
 	};
 
 	return (
@@ -67,7 +67,7 @@ export const AddTransaction = () => {
 					<input
 						type="number"
 						id="amount"
-						placeholder="Enter amount..."
+						placeholder="0"
 						onChange={(e) => {
 							handleAmountChange(e);
 						}}

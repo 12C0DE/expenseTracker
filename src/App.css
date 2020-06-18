@@ -27,6 +27,11 @@ body {
 h1 {
 	letter-spacing: 1px;
 	margin: 0;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
 }
 
 h3 {
@@ -38,6 +43,12 @@ h3 {
 h4 {
 	margin: 0;
 	text-transform: uppercase;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+#balance {
+	text-align: center;
 }
 
 .categoryDiv {

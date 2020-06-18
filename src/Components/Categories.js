@@ -37,6 +37,7 @@ export const Categories = ({ category }) => {
 		e.preventDefault();
 
 		//need to add logic to prevent duplicate entries being added! ******
+		//does e.target.value or { text } exist in categories already???
 
 		const newID = findMax(ids);
 		const newCat = {
