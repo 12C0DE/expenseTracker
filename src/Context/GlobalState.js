@@ -8,19 +8,22 @@ const initialState = {
 			amount: 34,
 			catID: 1,
 			id: 1,
-			text: 'fd'
+			text: 'fd',
+			transDate: '2018/8/5'
 		},
 		{
 			amount: 634,
 			catID: 2,
 			id: 2,
-			text: 'hgh'
+			text: 'hgh',
+			transDate: '2018/8/5'
 		},
 		{
 			amount: 734,
 			catID: 2,
 			id: 3,
-			text: 'ghj'
+			text: 'ghj',
+			transDate: '2018/8/5'
 		}
 	],
 	categories: [
@@ -41,7 +44,8 @@ const initialState = {
 		}
 	],
 	selectedCategory: 1,
-	showCategoryAdded: false
+	showCategoryAdded: false,
+	todayDate: new Date().toLocaleDateString()
 };
 
 //Create context
@@ -98,7 +102,8 @@ export const GlobalProvider = ({ children }) => {
 				addTransaction,
 				addCategory,
 				selectCategory,
-				toggleCatAdded
+				toggleCatAdded,
+				todayDate: state.todayDate
 			}}
 		>
 			{children}

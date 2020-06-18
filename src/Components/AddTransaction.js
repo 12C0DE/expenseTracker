@@ -6,7 +6,7 @@ export const AddTransaction = () => {
 	const [ text, setText ] = useState('');
 	const [ amount, setAmount ] = useState('');
 	const [ active, setActive ] = useState(false);
-	const { addTransaction, transactions, selectedCategory, toggleCatAdded } = useContext(GlobalContext);
+	const { addTransaction, transactions, selectedCategory, toggleCatAdded, todayDate } = useContext(GlobalContext);
 	const ids = transactions.map((transaction) => transaction.id);
 
 	function findMax(transIDs) {
@@ -48,7 +48,8 @@ export const AddTransaction = () => {
 			id: findMax(ids),
 			catID: selectedCategory,
 			amount: +amount,
-			text
+			text,
+			transDate: todayDate
 		};
 		addTransaction(newTrans);
 		setText('');

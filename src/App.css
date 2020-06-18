@@ -51,6 +51,21 @@ h4 {
 	text-align: center;
 }
 
+#transAmount {
+	width: 155px;
+	text-align: right;
+}
+
+#notes {
+	width: 175px;
+	text-align: left;
+}
+
+#transDate {
+	width: 155px;
+	text-align: center;
+}
+
 .categoryDiv {
 	margin-left: 20px;
 	width: 175px;
