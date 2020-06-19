@@ -51,18 +51,18 @@ h4 {
 	text-align: center;
 }
 
-#transAmount {
-	width: 155px;
+.transAmount {
+	width: 175px;
 	text-align: right;
 }
 
-#notes {
+.notes {
 	width: 175px;
 	text-align: left;
 }
 
-#transDate {
-	width: 155px;
+.transDate {
+	width: 175px;
 	text-align: center;
 }
 

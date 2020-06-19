@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
+import Firebase from '../Firebase/Firebase';
 
 //Initial State
 const initialState = {
