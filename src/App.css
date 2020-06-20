@@ -52,18 +52,18 @@ h4 {
 }
 
 .transAmount {
-	width: 175px;
+	width: 150px;
 	text-align: right;
 }
 
 .notes {
-	width: 175px;
-	text-align: left;
+	width: 200px;
+	text-align: center;
 }
 
 .transDate {
-	width: 175px;
-	text-align: center;
+	width: 150px;
+	text-align: left;
 }
 
 .categoryDiv {
@@ -132,7 +132,7 @@ select {
 
 .btn {
 	cursor: pointer;
-	background-color: #9c88ff;
+	background-color: #3bcacf;
 	box-shadow: var(--box-shadow);
 	color: #fff;
 	border: 0;

@@ -2,13 +2,35 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Category } from './Category';
 import { GlobalContext } from '../Context/GlobalState';
 import { SubmitBtn } from './SubmitBtn';
+import Firebase from '../Firebase/Firebase';
 
-export const Categories = ({ category }) => {
+export const Categories = () => {
 	const [ text, setText ] = useState('');
 	const [ active, setActive ] = useState(false);
-	const { categories, addCategory, selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(
-		GlobalContext
-	);
+	// const { categories, addCategory, selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(
+	// 	GlobalContext
+	// );
+	const { selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(GlobalContext);
+
+	function GetCats() {
+		const [ cats, setCats ] = useState([]);
+
+		useEffect(() => {
+			const unsubscribe = Firebase.firestore().collection('categories').onSnapshot((snapshot) => {
+				const category = snapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data()
+				}));
+				setCats(category);
+			});
+			return () => {
+				unsubscribe();
+			};
+		}, []);
+		return cats;
+	}
+
+	const categories = GetCats();
 	const ids = categories.map((category) => category.id);
 
 	const enableBtn = (e) => {
@@ -45,11 +67,21 @@ export const Categories = ({ category }) => {
 			value: newID,
 			text
 		};
-		addCategory(newCat);
+		// addCategory(newCat);
 		selectCategory(+newCat.id);
-		setText('');
-		setActive(false);
-		toggleCatAdded(true);
+
+		Firebase.firestore()
+			.collection('categories')
+			.add({
+				id: newCat.id,
+				text: newCat.text,
+				value: newCat.value
+			})
+			.then(() => {
+				setText('');
+				setActive(false);
+				toggleCatAdded(true);
+			});
 	};
 
 	return (
@@ -63,7 +95,7 @@ export const Categories = ({ category }) => {
 				}}
 			>
 				{categories
-					.sort((a, b) => (a.text > b.text ? 1 : -1))
+					.sort((a, b) => (a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1))
 					.map((category) => <Category key={category.id} category={category} />)}
 			</select>
 			<form id="htmlFormCat" onSubmit={onSubmit}>

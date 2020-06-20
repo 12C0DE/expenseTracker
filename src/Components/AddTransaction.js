@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { SubmitBtn } from './SubmitBtn';
 import { GlobalContext } from '../Context/GlobalState';
 
+import Firebase from '../Firebase/Firebase';
+
 export const AddTransaction = () => {
 	const [ text, setText ] = useState('');
 	const [ amount, setAmount ] = useState('');
@@ -9,21 +11,23 @@ export const AddTransaction = () => {
 	const { addTransaction, transactions, selectedCategory, toggleCatAdded, todayDate } = useContext(GlobalContext);
 	const ids = transactions.map((transaction) => transaction.id);
 
-	function findMax(transIDs) {
-		let max = transIDs[0];
+	function findMax(sortOrder) {
+		let max = sortOrder[0];
 
-		if (transIDs[0] === undefined) {
+		if (sortOrder[0] === undefined) {
 			return 1;
 		}
 
-		for (let id of transIDs) {
+		for (let id of sortOrder) {
 			max = id > max ? id : max;
 		}
 		return max + 1;
 	}
 
 	const handleAmountChange = (e) => {
-		if (e.target.value !== '0' && e.target.value !== '') {
+		if (selectedCategory === 1) {
+			setActive(false);
+		} else if (e.target.value !== '0' && e.target.value !== '') {
 			setActive(true);
 		} else {
 			setActive(false);
@@ -37,24 +41,37 @@ export const AddTransaction = () => {
 		setText(e.target.value);
 	};
 
+	//Submitting the transaction
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		if (amount === 0) {
+		if (amount === 0 || selectedCategory === 1) {
 			return;
 		}
 
 		const newTrans = {
-			id: findMax(ids),
 			catID: selectedCategory,
 			amount: +amount,
 			text,
-			transDate: todayDate
+			transDate: todayDate,
+			timeStmp: Date.now()
 		};
 		addTransaction(newTrans);
-		setText('');
-		setActive(false);
-		setAmount('');
+
+		Firebase.firestore()
+			.collection('transactions')
+			.add({
+				amount: newTrans.amount,
+				catID: newTrans.catID,
+				text: newTrans.text,
+				transDate: todayDate,
+				timeStmp: newTrans.timeStmp
+			})
+			.then(() => {
+				setText('');
+				setActive(false);
+				setAmount('');
+			});
 	};
 
 	return (
@@ -67,6 +84,7 @@ export const AddTransaction = () => {
 					</label>
 					<input
 						type="number"
+						step="0.01"
 						id="amount"
 						placeholder="0"
 						onChange={(e) => {

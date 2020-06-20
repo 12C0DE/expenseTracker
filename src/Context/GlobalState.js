@@ -1,49 +1,10 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
-import Firebase from '../Firebase/Firebase';
 
 //Initial State
 const initialState = {
-	transactions: [
-		{
-			amount: 34,
-			catID: 1,
-			id: 1,
-			text: 'fd',
-			transDate: '2018/8/5'
-		},
-		{
-			amount: 634,
-			catID: 2,
-			id: 2,
-			text: 'hgh',
-			transDate: '2018/8/5'
-		},
-		{
-			amount: 734,
-			catID: 2,
-			id: 3,
-			text: 'ghj',
-			transDate: '2018/8/5'
-		}
-	],
-	categories: [
-		{
-			id: 1,
-			value: 1,
-			text: 'fss'
-		},
-		{
-			id: 2,
-			value: 2,
-			text: 'gdss'
-		},
-		{
-			id: 3,
-			value: 3,
-			text: 'gvbv'
-		}
-	],
+	transactions: [],
+	categories: [],
 	selectedCategory: 1,
 	showCategoryAdded: false,
 	todayDate: new Date().toLocaleDateString()
@@ -99,7 +60,6 @@ export const GlobalProvider = ({ children }) => {
 				categories: state.categories,
 				selectedCategory: state.selectedCategory,
 				showCategoryAdded: state.showCategoryAdded,
-				delTransaction,
 				addTransaction,
 				addCategory,
 				selectCategory,
