@@ -25,13 +25,6 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
-	function delTransaction(id) {
-		dispatch({
-			type: 'DEL_TRANS',
-			payload: id
-		});
-	}
-
 	function addCategory(category) {
 		dispatch({
 			type: 'ADD_CAT',

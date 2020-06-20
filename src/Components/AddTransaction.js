@@ -8,21 +8,7 @@ export const AddTransaction = () => {
 	const [ text, setText ] = useState('');
 	const [ amount, setAmount ] = useState('');
 	const [ active, setActive ] = useState(false);
-	const { addTransaction, transactions, selectedCategory, toggleCatAdded, todayDate } = useContext(GlobalContext);
-	const ids = transactions.map((transaction) => transaction.id);
-
-	function findMax(sortOrder) {
-		let max = sortOrder[0];
-
-		if (sortOrder[0] === undefined) {
-			return 1;
-		}
-
-		for (let id of sortOrder) {
-			max = id > max ? id : max;
-		}
-		return max + 1;
-	}
+	const { addTransaction, selectedCategory, toggleCatAdded, todayDate } = useContext(GlobalContext);
 
 	const handleAmountChange = (e) => {
 		if (selectedCategory === 1) {
