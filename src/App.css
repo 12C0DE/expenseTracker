@@ -148,7 +148,7 @@ select {
 }
 
 .btn:focus,
-.delete-btn:focus {
+.switch-btn:focus {
 	outline: 0;
 }
 
@@ -177,12 +177,12 @@ select {
 	border-right: 5px solid #c0392b;
 }
 
-.delete-btn {
+.switch-btn {
 	cursor: pointer;
 	background-color: #e74c3c;
 	border: 0;
 	color: #fff;
-	font-size: 20px;
+	font-size: 15px;
 	line-height: 20px;
 	padding: 2px 5px;
 	position: absolute;
@@ -193,7 +193,15 @@ select {
 	transition: opacity 0.3s ease;
 }
 
-.list li:hover .delete-btn {
+.switch-pos {
+	background-color: #49e78b;
+}
+
+.switch-neg {
+	background-color: #e74c3c;
+}
+
+.list li:hover .switch-btn {
 	opacity: 1;
 }
 
