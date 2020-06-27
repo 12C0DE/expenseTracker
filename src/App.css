@@ -10,18 +10,8 @@
 
 body {
 	background-color: #f7f7f7;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
 	margin: 0;
 	font-family: 'Lato', sans-serif;
-}
-
-.container {
-	margin: 30px auto;
-	width: 350px;
 }
 
 h1 {
@@ -38,6 +28,7 @@ h3 {
 	border-bottom: 1px solid #bbb;
 	padding-bottom: 10px;
 	margin: 40px 0 10px;
+	text-align: center;
 }
 
 h4 {
@@ -49,6 +40,7 @@ h4 {
 
 #balance {
 	text-align: center;
+	grid-area: balTitle;
 }
 
 .transAmount {
@@ -194,7 +186,7 @@ select {
 }
 
 .switch-pos {
-	background-color: #49e78b;
+	background-color: #2dc96e;
 }
 
 .switch-neg {
@@ -205,8 +197,60 @@ select {
 	opacity: 1;
 }
 
-@media (max-width: 320px) {
+#catTitle {
+	grid-area: catTitle;
+}
+
+#addTitle {
+	grid-area: addTitle;
+}
+
+.restCat {
+	grid-area: restCat;
+}
+
+#restTrans {
+	grid-area: restTrans;
+}
+#balance {
+	grid-area: bal;
+}
+
+#total {
+	grid-area: tot;
+}
+
+.inc-exp-container {
+	grid-area: incExpContainer;
+}
+
+#history {
+	grid-area: hist;
+}
+
+#transList {
+	grid-area: tList;
+}
+
+.container {
+	margin: 10px auto;
+	display: grid;
+	height: 100vh;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: .4fr 1fr .4fr .7fr 1fr .5fr 3fr;
+	grid-template-areas: "catTitle catTitle addTitle addTitle" "restCat restCat restTrans restTrans" "bal bal bal bal"
+		"tot tot tot tot" ". incExpContainer incExpContainer ." "hist hist hist hist" "tList tList tList tList";
+	grid-gap: 0.5rem;
+}
+
+@media (max-width: 800px) {
 	.container {
-		width: 300px;
+		grid-template-columns: 1;
+		grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-areas: "catTitle" "restCat" "bal" "tot" "incExpContainer" "addTitle" "restTrans" "hist" "tList";
+	}
+
+	h3 {
+		text-align: left;
 	}
 }

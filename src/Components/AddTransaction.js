@@ -62,37 +62,39 @@ export const AddTransaction = () => {
 
 	return (
 		<React.Fragment>
-			<h3>Add new transaction</h3>
-			<form id="htmlForm" onSubmit={onSubmit}>
-				<div className="htmlForm-control">
-					<label htmlFor="amount">
-						Amount <br />
-					</label>
-					<input
-						type="number"
-						step="0.01"
-						id="amount"
-						placeholder="0"
-						onChange={(e) => {
-							handleAmountChange(e);
-						}}
-						value={amount}
-					/>
+			<h3 id="addTitle">Add new transaction</h3>
+			<div id="restTrans">
+				<form id="htmlFormTrans" onSubmit={onSubmit}>
 					<div className="htmlForm-control">
-						<label htmlFor="text">Notes</label>
+						<label htmlFor="amount">
+							Amount <br />
+						</label>
 						<input
-							type="text"
-							id="text"
-							placeholder="Enter text..."
+							type="number"
+							step="0.01"
+							id="amount"
+							placeholder="0"
 							onChange={(e) => {
-								handleTextChange(e);
+								handleAmountChange(e);
 							}}
-							value={text}
+							value={amount}
 						/>
+						<div className="htmlForm-control">
+							<label htmlFor="text">Notes</label>
+							<input
+								type="text"
+								id="text"
+								placeholder="Enter text..."
+								onChange={(e) => {
+									handleTextChange(e);
+								}}
+								value={text}
+							/>
+						</div>
 					</div>
-				</div>
-				<SubmitBtn text="Add Transaction" active={active} />
-			</form>
+					<SubmitBtn text="Add Transaction" active={active} />
+				</form>
+			</div>
 		</React.Fragment>
 	);
 };

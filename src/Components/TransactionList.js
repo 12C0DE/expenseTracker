@@ -25,8 +25,8 @@ export const TransactionList = () => {
 
 	return (
 		<React.Fragment>
-			<h3>History</h3>
-			<ul className="list">
+			<h3 id="history">History</h3>
+			<ul id="transList" className="list">
 				<li>
 					<span className="transDate">
 						<i>Date</i>

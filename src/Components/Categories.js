@@ -86,36 +86,39 @@ export const Categories = () => {
 
 	return (
 		<React.Fragment>
-			<h3>Select Category</h3>
-			<select
-				value={selectedCategory}
-				onChange={(e) => {
-					toggleCatAdded(false);
-					selectCategory(+e.target.value);
-				}}
-			>
-				{categories
-					.sort((a, b) => (a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1))
-					.map((category) => <Category key={category.id} category={category} />)}
-			</select>
-			<form id="htmlFormCat" onSubmit={onSubmit}>
-				<div className="htmlForm-control">
-					<label htmlFor="text">Add New Category</label>
-					<span className="categoryDiv" hidden={!showCategoryAdded}>
-						<label className=" plus">Category Added!</label>
-					</span>
-					<input
-						type="text"
-						placeholder="Enter text..."
-						onChange={(e) => {
-							toggleCatAdded(false);
-							enableBtn(e);
-						}}
-						value={text}
-					/>
-				</div>
-				<SubmitBtn text="Add Category" active={active} />
-			</form>
+			<h3 id="catTitle">Select Category</h3>
+			<div className="restCat">
+				<label>Category</label>
+				<select
+					value={selectedCategory}
+					onChange={(e) => {
+						toggleCatAdded(false);
+						selectCategory(+e.target.value);
+					}}
+				>
+					{categories
+						.sort((a, b) => (a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1))
+						.map((category) => <Category key={category.id} category={category} />)}
+				</select>
+				<form id="htmlFormCat" className="restCat" onSubmit={onSubmit}>
+					<div className="htmlForm-control">
+						<label htmlFor="text">Add New Category</label>
+						<span className="categoryDiv" hidden={!showCategoryAdded}>
+							<label className=" plus">Category Added!</label>
+						</span>
+						<input
+							type="text"
+							placeholder="Enter text..."
+							onChange={(e) => {
+								toggleCatAdded(false);
+								enableBtn(e);
+							}}
+							value={text}
+						/>
+					</div>
+					<SubmitBtn text="Add Category" active={active} />
+				</form>
+			</div>
 		</React.Fragment>
 	);
 };
