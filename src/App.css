@@ -122,10 +122,6 @@ select {
 	width: 100%;
 }
 
-select {
-	margin-bottom: 15px;
-}
-
 .btn {
 	cursor: pointer;
 	box-shadow: var(--box-shadow);
