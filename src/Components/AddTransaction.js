@@ -62,7 +62,7 @@ export const AddTransaction = () => {
 
 	return (
 		<React.Fragment>
-			<h3 id="addTitle">Add new transaction</h3>
+			<h3 id="addTitle">Add Transaction</h3>
 			<div id="restTrans">
 				<form id="htmlFormTrans" onSubmit={onSubmit}>
 					<div className="htmlForm-control">

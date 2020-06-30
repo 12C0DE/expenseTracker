@@ -23,25 +23,64 @@ export const TransactionList = () => {
 		return transactions;
 	}
 
+	function useWindowWidth() {
+		const [ windowWidth, setWindowWidth ] = useState(window.innerWidth);
+
+		useEffect(() => {
+			function handleResize() {
+				setWindowWidth(window.innerWidth);
+			}
+
+			window.addEventListener('resize', handleResize);
+			return () => window.removeEventListener('resize', handleResize);
+		}, []);
+		return windowWidth;
+	}
+
+	const breakpoint = 769;
+	const widthSize = useWindowWidth();
+
+	const transHeader =
+		widthSize < breakpoint ? (
+			<li>
+				<span className="toggleDiv">
+					<i>Toggle</i>
+				</span>
+				<span className="transDate">
+					<i>Date</i>
+				</span>
+				<span className="notes">
+					<i>Notes</i>
+				</span>
+				<span className="transAmount">
+					<i>Amount</i>
+				</span>
+			</li>
+		) : (
+			<li>
+				<span className="transDate">
+					<i>Date</i>
+				</span>
+				<span className="notes">
+					<i>Notes</i>
+				</span>
+				<span className="transAmount">
+					<i>Amount</i>
+				</span>
+			</li>
+		);
+
 	return (
 		<React.Fragment>
 			<h3 id="history">History</h3>
 			<ul id="transList" className="list">
-				<li>
-					<span className="transDate">
-						<i>Date</i>
-					</span>
-					<span className="notes">
-						<i>Notes</i>
-					</span>
-					<span className="transAmount">
-						<i>Amount</i>
-					</span>
-				</li>
+				{transHeader}
 				{transactions
 					.filter((transaction) => transaction.catID === selectedCategory)
 					.sort((a, b) => (a.timeStmp < b.timeStmp ? 1 : -1))
-					.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
+					.map((transaction) => (
+						<Transaction key={transaction.id} transaction={transaction} winWidth={widthSize} />
+					))}
 			</ul>
 		</React.Fragment>
 	);

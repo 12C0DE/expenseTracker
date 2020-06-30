@@ -44,24 +44,28 @@ h4 {
 }
 
 .transAmount {
-	width: 150px;
+	width: 15%;
 	text-align: right;
 }
 
 .notes {
-	width: 200px;
+	width: 75%;
 	text-align: center;
 }
 
 .transDate {
-	width: 150px;
+	width: 15%;
+	text-align: left;
+}
+
+.toggleCol {
+	width: 10%;
 	text-align: left;
 }
 
 .categoryDiv {
 	margin-left: 20px;
-	width: 175px;
-	position: absolute;
+	/* position: absolute; */
 	font-size: .8em;
 	font-weight: bold;
 	color: green;
@@ -124,7 +128,6 @@ select {
 
 .btn {
 	cursor: pointer;
-	background-color: #3bcacf;
 	box-shadow: var(--box-shadow);
 	color: #fff;
 	border: 0;
@@ -133,6 +136,17 @@ select {
 	margin: 10px 0 30px;
 	padding: 10px;
 	width: 100%;
+	background-color: #3bcacf;
+}
+
+.toggleBtn {
+	cursor: pointer;
+	box-shadow: var(--box-shadow);
+	border: 0;
+	display: block;
+	font-size: 16px;
+	padding: 0 10px;
+	margin-right: 10px;
 }
 
 .disabled {
@@ -171,18 +185,20 @@ select {
 
 .switch-btn {
 	cursor: pointer;
-	background-color: #e74c3c;
 	border: 0;
 	color: #fff;
-	font-size: 15px;
-	line-height: 20px;
-	padding: 2px 5px;
+	font-size: 12px;
+	line-height: 15px;
+	padding: 0 5px;
 	position: absolute;
 	top: 50%;
 	left: 0;
 	transform: translate(-100%, -50%);
 	opacity: 0;
 	transition: opacity 0.3s ease;
+	width: 55px;
+	writing-mode: vertical-rl;
+	text-orientation: upright;
 }
 
 .switch-pos {
@@ -230,12 +246,14 @@ select {
 
 #transList {
 	grid-area: tList;
+	margin: 0 55px;
 }
 
 .container {
 	margin: 10px auto;
 	display: grid;
 	height: 100vh;
+	width: 90vw;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: .4fr 1fr .4fr .7fr 1fr .5fr 3fr;
 	grid-template-areas: "catTitle catTitle addTitle addTitle" "restCat restCat restTrans restTrans" "bal bal bal bal"
@@ -243,14 +261,43 @@ select {
 	grid-gap: 0.5rem;
 }
 
-@media (max-width: 800px) {
+@media only screen and (max-width: 800px) {
 	.container {
-		grid-template-columns: 1;
+		grid-template-columns: 1fr;
 		grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 		grid-template-areas: "catTitle" "restCat" "bal" "tot" "incExpContainer" "addTitle" "restTrans" "hist" "tList";
 	}
 
 	h3 {
 		text-align: left;
+	}
+}
+
+@media only screen and (max-width: 769px) {
+	.toggleDiv {
+		width: 10%;
+	}
+
+	.transDate {
+		width: 10%;
+		text-align: center;
+	}
+
+	.notes {
+		width: 65%;
+	}
+
+	.transAmount {
+		width: 15%;
+	}
+
+	#transList {
+		margin: 0 0;
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	.notes {
+		display: none;
 	}
 }
