@@ -91,7 +91,7 @@ h4 {
 }
 
 .money {
-	font-size: 20px;
+	font-size: 1.4em;
 	letter-spacing: 1px;
 	margin: 5px 0;
 	padding-left: 10px;
@@ -117,7 +117,7 @@ select {
 	border: 1px solid #dedede;
 	border-radius: 2px;
 	display: block;
-	font-size: 16px;
+	font-size: 1em;
 	padding: 10px;
 	width: 100%;
 }
@@ -132,7 +132,7 @@ select {
 	color: #fff;
 	border: 0;
 	display: block;
-	font-size: 16px;
+	font-size: 1.2rem;
 	margin: 10px 0 30px;
 	padding: 10px;
 	width: 100%;
@@ -144,7 +144,7 @@ select {
 	box-shadow: var(--box-shadow);
 	border: 0;
 	display: block;
-	font-size: 16px;
+	font-size: 1rem;
 	padding: 0 10px;
 	margin-right: 10px;
 }
@@ -162,6 +162,7 @@ select {
 	list-style-type: none;
 	padding: 0;
 	margin-bottom: 40px;
+	font-size: 1.2rem;
 }
 
 .list li {
@@ -187,7 +188,7 @@ select {
 	cursor: pointer;
 	border: 0;
 	color: #fff;
-	font-size: 12px;
+	font-size: .7rem;
 	line-height: 15px;
 	padding: 0 5px;
 	position: absolute;
@@ -271,6 +272,10 @@ select {
 	h3 {
 		text-align: left;
 	}
+
+	.list {
+		font-size: .8rem;
+	}
 }
 
 @media only screen and (max-width: 769px) {
@@ -293,11 +298,16 @@ select {
 
 	#transList {
 		margin: 0 0;
+		font-size: .8rem;
 	}
 }
 
 @media only screen and (max-width: 430px) {
-	.notes {
+	.transDate {
 		display: none;
+	}
+
+	#transList {
+		font-size: .7rem;
 	}
 }
