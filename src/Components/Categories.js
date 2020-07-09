@@ -7,9 +7,6 @@ import Firebase from '../Firebase/Firebase';
 export const Categories = () => {
 	const [ text, setText ] = useState('');
 	const [ active, setActive ] = useState(false);
-	// const { categories, addCategory, selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(
-	// 	GlobalContext
-	// );
 	const { selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(GlobalContext);
 
 	function GetCats() {

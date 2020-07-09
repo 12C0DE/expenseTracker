@@ -1,25 +1,26 @@
 import React from 'react';
 import './App.css';
-import { Header } from './Components/Header';
-import { Balance } from './Components/Balance';
-import { Categories } from './Components/Categories';
-import { IncomeExpenses } from './Components/IncomeExpenses';
-import { TransactionList } from './Components/TransactionList';
-import { AddTransaction } from './Components/AddTransaction';
-
+import Login from './Pages/Login';
+import { Home } from './Pages/Home';
+import { NotFound } from './Pages/NotFound';
+import { AuthProvider } from './Firebase/Auth';
 import { GlobalProvider } from './Context/GlobalState';
+import { PrivateRoute } from './PrivateRoute';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 function App() {
 	return (
 		<GlobalProvider>
-			<Header />
-			<div className="container">
-				<Categories />
-				<Balance />
-				<IncomeExpenses />
-				<AddTransaction />
-				<TransactionList />
-			</div>
+			<AuthProvider>
+				<BrowserRouter>
+					<Switch>
+						<PrivateRoute exact path="/" component={Home} />
+						<Route exact path="/login" component={Login} />
+						<Route path="/404" component={NotFound} />
+						<Redirect to="/404" />
+					</Switch>
+				</BrowserRouter>
+			</AuthProvider>
 		</GlobalProvider>
 	);
 }

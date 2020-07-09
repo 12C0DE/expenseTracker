@@ -1,15 +1,16 @@
 import Firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-	apiKey: 'AIzaSyB9EcRQO9sVl4thwMqqU6pVQMy0OjVzMy8',
-	authDomain: 'moneytracker-289f7.firebaseapp.com',
-	databaseURL: 'https://moneytracker-289f7.firebaseio.com',
-	projectId: 'moneytracker-289f7',
-	storageBucket: 'moneytracker-289f7.appspot.com',
-	messagingSenderId: '1017715016287',
-	appId: '1:1017715016287:web:7fcf8ba6e6854afab5d1ea'
+	apiKey: process.env.REACT_APP_FIREBASE_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+	databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+	appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
