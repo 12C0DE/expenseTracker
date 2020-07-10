@@ -25,6 +25,11 @@ export default (state, action) => {
 				...state,
 				showCategoryAdded: action.payload
 			};
+		case 'CHANGE_VIEW':
+			return {
+				...state,
+				viewAmount: action.payload
+			};
 		default:
 			return state;
 	}

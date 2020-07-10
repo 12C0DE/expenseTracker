@@ -7,6 +7,7 @@ const initialState = {
 	categories: [],
 	selectedCategory: 1,
 	showCategoryAdded: false,
+	viewAmount: 10,
 	todayDate: new Date().toLocaleDateString()
 };
 
@@ -39,6 +40,13 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
+	function changeViewAmount(amount) {
+		dispatch({
+			type: 'CHANGE_VIEW',
+			payload: amount
+		});
+	}
+
 	function toggleCatAdded(isVisible) {
 		dispatch({
 			type: 'SHOW_CAT',
@@ -53,9 +61,11 @@ export const GlobalProvider = ({ children }) => {
 				categories: state.categories,
 				selectedCategory: state.selectedCategory,
 				showCategoryAdded: state.showCategoryAdded,
+				viewAmount: state.viewAmount,
 				addTransaction,
 				addCategory,
 				selectCategory,
+				changeViewAmount,
 				toggleCatAdded,
 				todayDate: state.todayDate
 			}}

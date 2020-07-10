@@ -1,25 +1,38 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../Context/GlobalState';
+import { ViewSelect } from '../Components/ViewSelect';
 import { Transaction } from './Transaction';
 import Firebase from '../Firebase/Firebase';
 
 export const TransactionList = () => {
-	// const { transactions, selectedCategory } = useContext(GlobalContext);
-	const { selectedCategory } = useContext(GlobalContext);
+	const { selectedCategory, viewAmount } = useContext(GlobalContext);
 	const transactions = GetTransactions();
+	const [ loading, setLoading ] = useState(false);
+	const [ currPage, setCurrPage ] = useState(1);
+	const [ postsPerPage, setPostsPerPage ] = useState(10);
+	const lastPostIndex = currPage * postsPerPage;
+	const firstPostIndex = lastPostIndex - postsPerPage;
 
 	function GetTransactions() {
 		const [ transactions, setTransactions ] = useState([]);
 
-		useEffect(() => {
-			Firebase.firestore().collection('transactions').onSnapshot((dt) => {
-				const tran = dt.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data()
-				}));
-				setTransactions(tran);
-			});
-		}, []);
+		useEffect(
+			() => {
+				Firebase.firestore()
+					.collection('transactions')
+					.where('catID', '==', selectedCategory)
+					.orderBy('timeStmp', 'desc')
+					.limit(viewAmount)
+					.onSnapshot((dt) => {
+						const tran = dt.docs.filter((doc) => doc.data).map((doc) => ({
+							id: doc.id,
+							...doc.data()
+						}));
+						setTransactions(tran);
+					});
+			},
+			[ selectedCategory, viewAmount ]
+		);
 		return transactions;
 	}
 
@@ -73,14 +86,10 @@ export const TransactionList = () => {
 	return (
 		<React.Fragment>
 			<h3 id="history">History</h3>
+			<ViewSelect />
 			<ul id="transList" className="list">
 				{transHeader}
-				{transactions
-					.filter((transaction) => transaction.catID === selectedCategory)
-					.sort((a, b) => (a.timeStmp < b.timeStmp ? 1 : -1))
-					.map((transaction) => (
-						<Transaction key={transaction.id} transaction={transaction} winWidth={widthSize} />
-					))}
+				{transactions.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
 			</ul>
 		</React.Fragment>
 	);
