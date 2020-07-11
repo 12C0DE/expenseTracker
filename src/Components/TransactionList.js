@@ -9,12 +9,14 @@ export const TransactionList = () => {
 	const transactions = GetTransactions();
 	const lastPostIndex = currPage * viewAmount;
 	const firstPostIndex = lastPostIndex - viewAmount;
+	let transCount = lastPostIndex > transactions.length ? transactions.length : lastPostIndex;
 	const currTrans =
 		currPage === 1 ? transactions.slice(0, viewAmount) : transactions.slice(firstPostIndex, lastPostIndex);
 
 	function PrevCurrPage() {
 		if (currPage > 1) {
 			changeCurrPage(currPage - 1);
+			transCount = lastPostIndex;
 		}
 	}
 
@@ -93,6 +95,15 @@ export const TransactionList = () => {
 			</li>
 		);
 
+	const viewCount =
+		transCount > 0 ? (
+			<span>
+				<i>
+					{firstPostIndex + 1}-{transCount}
+				</i>
+			</span>
+		) : null;
+
 	return (
 		<React.Fragment>
 			<h3 id="history">History</h3>
@@ -104,11 +115,7 @@ export const TransactionList = () => {
 				<button className="btn" onClick={NextCurrPage}>
 					Next {viewAmount}
 				</button>
-				<span>
-					<i>
-						{firstPostIndex + 1}-{lastPostIndex}
-					</i>
-				</span>
+				{viewCount}
 			</div>
 			<ul id="transList" className="list">
 				{transHeader}
