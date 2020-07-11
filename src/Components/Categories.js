@@ -7,7 +7,9 @@ import Firebase from '../Firebase/Firebase';
 export const Categories = () => {
 	const [ text, setText ] = useState('');
 	const [ active, setActive ] = useState(false);
-	const { selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded } = useContext(GlobalContext);
+	const { selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded, changeCurrPage } = useContext(
+		GlobalContext
+	);
 
 	function GetCats() {
 		const [ cats, setCats ] = useState([]);
@@ -91,6 +93,7 @@ export const Categories = () => {
 					onChange={(e) => {
 						toggleCatAdded(false);
 						selectCategory(+e.target.value);
+						changeCurrPage(1);
 					}}
 				>
 					{categories

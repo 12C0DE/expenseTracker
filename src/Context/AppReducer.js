@@ -30,6 +30,11 @@ export default (state, action) => {
 				...state,
 				viewAmount: action.payload
 			};
+		case 'CHANGE_PAGE':
+			return {
+				...state,
+				currPage: action.payload
+			};
 		default:
 			return state;
 	}

@@ -8,6 +8,7 @@ const initialState = {
 	selectedCategory: 1,
 	showCategoryAdded: false,
 	viewAmount: 10,
+	currPage: 1,
 	todayDate: new Date().toLocaleDateString()
 };
 
@@ -47,6 +48,13 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
+	function changeCurrPage(page) {
+		dispatch({
+			type: 'CHANGE_PAGE',
+			payload: page
+		});
+	}
+
 	function toggleCatAdded(isVisible) {
 		dispatch({
 			type: 'SHOW_CAT',
@@ -62,10 +70,12 @@ export const GlobalProvider = ({ children }) => {
 				selectedCategory: state.selectedCategory,
 				showCategoryAdded: state.showCategoryAdded,
 				viewAmount: state.viewAmount,
+				currPage: state.currPage,
 				addTransaction,
 				addCategory,
 				selectCategory,
 				changeViewAmount,
+				changeCurrPage,
 				toggleCatAdded,
 				todayDate: state.todayDate
 			}}

@@ -5,13 +5,24 @@ import { Transaction } from './Transaction';
 import Firebase from '../Firebase/Firebase';
 
 export const TransactionList = () => {
-	const { selectedCategory, viewAmount } = useContext(GlobalContext);
+	const { selectedCategory, viewAmount, currPage, changeCurrPage } = useContext(GlobalContext);
 	const transactions = GetTransactions();
-	const [ loading, setLoading ] = useState(false);
-	const [ currPage, setCurrPage ] = useState(1);
-	const [ postsPerPage, setPostsPerPage ] = useState(10);
-	const lastPostIndex = currPage * postsPerPage;
-	const firstPostIndex = lastPostIndex - postsPerPage;
+	const lastPostIndex = currPage * viewAmount;
+	const firstPostIndex = lastPostIndex - viewAmount;
+	const currTrans =
+		currPage === 1 ? transactions.slice(0, viewAmount) : transactions.slice(firstPostIndex, lastPostIndex);
+
+	function PrevCurrPage() {
+		if (currPage > 1) {
+			changeCurrPage(currPage - 1);
+		}
+	}
+
+	function NextCurrPage() {
+		if (transactions.length > currPage * viewAmount) {
+			changeCurrPage(currPage + 1);
+		}
+	}
 
 	function GetTransactions() {
 		const [ transactions, setTransactions ] = useState([]);
@@ -22,7 +33,6 @@ export const TransactionList = () => {
 					.collection('transactions')
 					.where('catID', '==', selectedCategory)
 					.orderBy('timeStmp', 'desc')
-					.limit(viewAmount)
 					.onSnapshot((dt) => {
 						const tran = dt.docs.filter((doc) => doc.data).map((doc) => ({
 							id: doc.id,
@@ -31,7 +41,7 @@ export const TransactionList = () => {
 						setTransactions(tran);
 					});
 			},
-			[ selectedCategory, viewAmount ]
+			[ selectedCategory, viewAmount, currPage ]
 		);
 		return transactions;
 	}
@@ -87,9 +97,22 @@ export const TransactionList = () => {
 		<React.Fragment>
 			<h3 id="history">History</h3>
 			<ViewSelect />
+			<div>
+				<button className="btn" onClick={PrevCurrPage}>
+					Prev {viewAmount}
+				</button>
+				<button className="btn" onClick={NextCurrPage}>
+					Next {viewAmount}
+				</button>
+				<span>
+					<i>
+						{firstPostIndex + 1}-{lastPostIndex}
+					</i>
+				</span>
+			</div>
 			<ul id="transList" className="list">
 				{transHeader}
-				{transactions.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
+				{currTrans.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
 			</ul>
 		</React.Fragment>
 	);
