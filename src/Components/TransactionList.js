@@ -2,10 +2,12 @@ import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../Context/GlobalState';
 import { ViewSelect } from '../Components/ViewSelect';
 import { Transaction } from './Transaction';
+import { TransLI } from '../Components/TransLI';
+import { TransLIToggle } from '../Components/TransLIToggle';
 import Firebase from '../Firebase/Firebase';
 
 export const TransactionList = () => {
-	const { selectedCategory, viewAmount, currPage, changeCurrPage } = useContext(GlobalContext);
+	const { viewAmount, currPage, changeCurrPage } = useContext(GlobalContext);
 	const [ sortDate, setSortDate ] = useState(true);
 	const [ sortDesc, setSortDesc ] = useState(true);
 	const orderByField = sortDate ? 'timeStmp' : 'amount';
@@ -32,6 +34,11 @@ export const TransactionList = () => {
 
 	function GetTransactions() {
 		const [ transactions, setTransactions ] = useState([]);
+		const { selectedCategory } = useContext(GlobalContext);
+		const viewAmt = viewAmount;
+		const currPg = currPage;
+		const sortDt = sortDate;
+		const sortDA = sortDesc;
 
 		useEffect(
 			() => {
@@ -47,7 +54,7 @@ export const TransactionList = () => {
 						setTransactions(tran);
 					});
 			},
-			[ selectedCategory, viewAmount, currPage, sortDate, sortDesc ]
+			[ selectedCategory, viewAmt, currPg, sortDt, sortDA ]
 		);
 		return transactions;
 	}
@@ -77,35 +84,7 @@ export const TransactionList = () => {
 	const breakpoint = 769;
 	const widthSize = useWindowWidth();
 
-	const transHeader =
-		widthSize < breakpoint ? (
-			<li>
-				<span className="toggleDiv">
-					<i>Toggle</i>
-				</span>
-				<span className="transDate">
-					<i>Date</i>
-				</span>
-				<span className="notes">
-					<i>Notes</i>
-				</span>
-				<span className="transAmount">
-					<i>Amount</i>
-				</span>
-			</li>
-		) : (
-			<li>
-				<span className="transDate">
-					<i>Date</i>
-				</span>
-				<span className="notes">
-					<i>Notes</i>
-				</span>
-				<span className="transAmount">
-					<i>Amount</i>
-				</span>
-			</li>
-		);
+	const transHeader = widthSize < breakpoint ? <TransLIToggle /> : <TransLI />;
 
 	const viewCount =
 		transCount > 0 ? (
