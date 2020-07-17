@@ -6,6 +6,10 @@ import Firebase from '../Firebase/Firebase';
 
 export const TransactionList = () => {
 	const { selectedCategory, viewAmount, currPage, changeCurrPage } = useContext(GlobalContext);
+	const [ sortDate, setSortDate ] = useState(true);
+	const [ sortDesc, setSortDesc ] = useState(true);
+	const orderByField = sortDate ? 'timeStmp' : 'amount';
+	const order = sortDesc ? 'desc' : 'asc';
 	const transactions = GetTransactions();
 	const lastPostIndex = currPage * viewAmount;
 	const firstPostIndex = lastPostIndex - viewAmount;
@@ -34,7 +38,7 @@ export const TransactionList = () => {
 				Firebase.firestore()
 					.collection('transactions')
 					.where('catID', '==', selectedCategory)
-					.orderBy('timeStmp', 'desc')
+					.orderBy(orderByField, order)
 					.onSnapshot((dt) => {
 						const tran = dt.docs.filter((doc) => doc.data).map((doc) => ({
 							id: doc.id,
@@ -43,7 +47,7 @@ export const TransactionList = () => {
 						setTransactions(tran);
 					});
 			},
-			[ selectedCategory, viewAmount, currPage ]
+			[ selectedCategory, viewAmount, currPage, sortDate, sortDesc ]
 		);
 		return transactions;
 	}
@@ -60,6 +64,14 @@ export const TransactionList = () => {
 			return () => window.removeEventListener('resize', handleResize);
 		}, []);
 		return windowWidth;
+	}
+
+	function toggleSortDate() {
+		setSortDate(!sortDate);
+	}
+
+	function toggleOrder() {
+		setSortDesc(!sortDesc);
 	}
 
 	const breakpoint = 769;
@@ -97,7 +109,7 @@ export const TransactionList = () => {
 
 	const viewCount =
 		transCount > 0 ? (
-			<span>
+			<span id="viewCount">
 				<i>
 					{firstPostIndex + 1}-{transCount}
 				</i>
@@ -107,15 +119,31 @@ export const TransactionList = () => {
 	return (
 		<React.Fragment>
 			<h3 id="history">History</h3>
-			<ViewSelect />
-			<div>
-				<button className="btn" onClick={PrevCurrPage}>
-					Prev {viewAmount}
-				</button>
-				<button className="btn" onClick={NextCurrPage}>
-					Next {viewAmount}
-				</button>
+			<div id="viewDiv">
+				<ViewSelect />
 				{viewCount}
+			</div>
+			<button id="prevBtn" className="btn" style={{ height: '40px', marginTop: '25px' }} onClick={PrevCurrPage}>
+				Prev {viewAmount}
+			</button>
+			<button id="nextBtn" className="btn" style={{ height: '40px', marginTop: '25px' }} onClick={NextCurrPage}>
+				Next {viewAmount}
+			</button>
+			<div id="sortBox">
+				<div id="sortBy">
+					<label style={{ paddingRight: '10px' }}>Sort By:</label>
+					<input type="radio" name="radio1" checked={sortDate} onChange={toggleSortDate} />
+					<label style={{ paddingRight: '5px', paddingLeft: '3px' }}>Date</label>
+					<input type="radio" name="radio2" checked={!sortDate} onChange={toggleSortDate} />
+					<label style={{ paddingLeft: '3px' }}>Amount</label>
+				</div>
+				<div id="sortOrd">
+					<label style={{ paddingRight: '10px' }}>Order:</label>
+					<input type="radio" name="radioDesc" checked={sortDesc} onChange={toggleOrder} />
+					<label style={{ paddingRight: '5px', paddingLeft: '3px' }}>Desc</label>
+					<input type="radio" name="radioAsc" checked={!sortDesc} onChange={toggleOrder} />
+					<label style={{ paddingLeft: '3px' }}>Asc</label>
+				</div>
 			</div>
 			<ul id="transList" className="list">
 				{transHeader}

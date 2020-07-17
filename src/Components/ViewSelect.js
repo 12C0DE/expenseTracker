@@ -6,18 +6,21 @@ export const ViewSelect = () => {
 	const { viewAmount, changeViewAmount, changeCurrPage } = useContext(GlobalContext);
 
 	return (
-		<select
-			defaultValue={viewAmount}
-			onChange={(e) => {
-				changeViewAmount(+e.target.value);
-				changeCurrPage(1);
-			}}
-		>
-			{viewNums.map((num) => (
-				<option key={num} value={num}>
-					{num}
-				</option>
-			))};
-		</select>
+		<div id="viewSelect">
+			<span>View:</span>
+			<select
+				defaultValue={viewAmount}
+				onChange={(e) => {
+					changeViewAmount(+e.target.value);
+					changeCurrPage(1);
+				}}
+			>
+				{viewNums.map((num) => (
+					<option key={num} value={num}>
+						{num}
+					</option>
+				))};
+			</select>
+		</div>
 	);
 };
