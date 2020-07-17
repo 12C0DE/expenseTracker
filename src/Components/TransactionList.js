@@ -42,7 +42,6 @@ export const TransactionList = () => {
 
 		useEffect(
 			() => {
-				console.log('get trans');
 				Firebase.firestore()
 					.collection('transactions')
 					.where('catID', '==', selectedCategory)
