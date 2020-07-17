@@ -71,13 +71,13 @@ export const GlobalProvider = ({ children }) => {
 				showCategoryAdded: state.showCategoryAdded,
 				viewAmount: state.viewAmount,
 				currPage: state.currPage,
+				todayDate: state.todayDate,
 				addTransaction,
 				addCategory,
 				selectCategory,
 				changeViewAmount,
 				changeCurrPage,
-				toggleCatAdded,
-				todayDate: state.todayDate
+				toggleCatAdded
 			}}
 		>
 			{children}

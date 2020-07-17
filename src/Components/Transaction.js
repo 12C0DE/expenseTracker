@@ -38,7 +38,7 @@ export const Transaction = ({ transaction }) => {
 			<li className={amountPositive ? 'plus' : 'minus'}>
 				<button
 					className={amountPositive ? 'switch-btn switch-neg' : 'switch-btn switch-pos'}
-					onClick={() => {
+					onClick={(e) => {
 						toggleCatAdded(false);
 						toggleIncomeExpense(transaction.id, transaction.amount);
 					}}

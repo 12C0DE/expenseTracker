@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../Context/GlobalState';
 import { ViewSelect } from '../Components/ViewSelect';
 import { Transaction } from './Transaction';
-import { TransLI } from '../Components/TransLI';
-import { TransLIToggle } from '../Components/TransLIToggle';
+import { TransLIhead } from './TransLIhead';
+import { TransLIToggleHead } from './TransLIToggleHead';
 import Firebase from '../Firebase/Firebase';
 
 export const TransactionList = () => {
@@ -42,6 +42,7 @@ export const TransactionList = () => {
 
 		useEffect(
 			() => {
+				console.log('get trans');
 				Firebase.firestore()
 					.collection('transactions')
 					.where('catID', '==', selectedCategory)
@@ -73,18 +74,20 @@ export const TransactionList = () => {
 		return windowWidth;
 	}
 
-	function toggleSortDate() {
+	const toggleSortDate = (e) => {
+		e.preventDefault();
 		setSortDate(!sortDate);
-	}
+	};
 
-	function toggleOrder() {
+	const toggleOrder = (e) => {
+		e.preventDefault();
 		setSortDesc(!sortDesc);
-	}
+	};
 
 	const breakpoint = 769;
 	const widthSize = useWindowWidth();
 
-	const transHeader = widthSize < breakpoint ? <TransLIToggle /> : <TransLI />;
+	const transHeader = widthSize < breakpoint ? <TransLIToggleHead /> : <TransLIhead />;
 
 	const viewCount =
 		transCount > 0 ? (

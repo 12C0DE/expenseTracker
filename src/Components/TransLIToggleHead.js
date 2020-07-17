@@ -1,8 +1,11 @@
 import React from 'react';
 
-export const TransLI = () => {
+export const TransLIToggleHead = () => {
 	return (
 		<li>
+			<span className="toggleDiv">
+				<i>Toggle</i>
+			</span>
 			<span className="transDate">
 				<i>Date</i>
 			</span>
