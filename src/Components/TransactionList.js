@@ -34,7 +34,7 @@ export const TransactionList = () => {
 
 	function GetTransactions() {
 		const [ transactions, setTransactions ] = useState([]);
-		const { selectedCategory } = useContext(GlobalContext);
+		const { selectedCategory, toggleSwitch } = useContext(GlobalContext);
 		const viewAmt = viewAmount;
 		const currPg = currPage;
 		const sortDt = sortDate;
@@ -55,7 +55,7 @@ export const TransactionList = () => {
 						setTransactions(tran);
 					});
 			},
-			[ selectedCategory, viewAmt, currPg, sortDt, sortDA ]
+			[ selectedCategory, viewAmt, currPg, sortDt, sortDA, toggleSwitch ]
 		);
 		return transactions;
 	}

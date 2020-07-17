@@ -35,6 +35,11 @@ export default (state, action) => {
 				...state,
 				currPage: action.payload
 			};
+		case 'TOGGLE_SWITCH':
+			return {
+				...state,
+				toggleSwitch: action.payload
+			};
 		default:
 			return state;
 	}

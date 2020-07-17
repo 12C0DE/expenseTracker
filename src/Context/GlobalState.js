@@ -9,6 +9,7 @@ const initialState = {
 	showCategoryAdded: false,
 	viewAmount: 10,
 	currPage: 1,
+	toggleSwitch: false,
 	todayDate: new Date().toLocaleDateString()
 };
 
@@ -62,6 +63,13 @@ export const GlobalProvider = ({ children }) => {
 		});
 	}
 
+	function toggleSwitchAction(toggle) {
+		dispatch({
+			type: 'TOGGLE_SWITCH',
+			payload: toggle
+		});
+	}
+
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -71,13 +79,15 @@ export const GlobalProvider = ({ children }) => {
 				showCategoryAdded: state.showCategoryAdded,
 				viewAmount: state.viewAmount,
 				currPage: state.currPage,
+				toggleSwitch: state.toggleSwitch,
 				todayDate: state.todayDate,
 				addTransaction,
 				addCategory,
 				selectCategory,
 				changeViewAmount,
 				changeCurrPage,
-				toggleCatAdded
+				toggleCatAdded,
+				toggleSwitchAction
 			}}
 		>
 			{children}

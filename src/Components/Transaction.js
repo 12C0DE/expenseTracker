@@ -4,13 +4,15 @@ import { GlobalContext } from '../Context/GlobalState';
 import Firebase from '../Firebase/Firebase';
 
 export const Transaction = ({ transaction }) => {
-	const { toggleCatAdded } = useContext(GlobalContext);
+	const { toggleCatAdded, toggleSwitch, toggleSwitchAction } = useContext(GlobalContext);
 	const amountPositive = transaction.amount > 0 ? true : false;
 	const sign = amountPositive ? '+' : '-';
 	const toggleSign = amountPositive ? '-' : '+';
 	const switchIncExp = amountPositive ? 'Switch to Expense' : 'Switch to Income';
 
 	function toggleIncomeExpense(docID, amt) {
+		toggleSwitchAction(!toggleSwitch);
+
 		Firebase.firestore().collection('transactions').doc(docID).update({
 			amount: amt * -1
 		});
