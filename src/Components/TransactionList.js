@@ -102,10 +102,20 @@ export const TransactionList = () => {
 				<ViewSelect />
 				{viewCount}
 			</div>
-			<button id="prevBtn" className="btn" style={{ height: '40px', marginTop: '25px' }} onClick={PrevCurrPage}>
+			<button
+				id="prevBtn"
+				className="btn"
+				style={{ height: '40px', marginTop: '25px', backgroundColor: 'white', color: 'black' }}
+				onClick={PrevCurrPage}
+			>
 				Prev {viewAmount}
 			</button>
-			<button id="nextBtn" className="btn" style={{ height: '40px', marginTop: '25px' }} onClick={NextCurrPage}>
+			<button
+				id="nextBtn"
+				className="btn"
+				style={{ height: '40px', marginTop: '25px', backgroundColor: 'white', color: 'black' }}
+				onClick={NextCurrPage}
+			>
 				Next {viewAmount}
 			</button>
 			<div id="sortBox">
