@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Category } from './Category';
 import { GlobalContext } from '../Context/GlobalState';
+import { AuthContext } from '../Firebase/Auth';
 import { SubmitBtn } from './SubmitBtn';
 import Firebase from '../Firebase/Firebase';
 
@@ -10,18 +11,22 @@ export const Categories = () => {
 	const { selectCategory, selectedCategory, showCategoryAdded, toggleCatAdded, changeCurrPage } = useContext(
 		GlobalContext
 	);
+	const { currentUser } = useContext(AuthContext);
 
 	function GetCats() {
 		const [ cats, setCats ] = useState([]);
 
 		useEffect(() => {
-			const unsubscribe = Firebase.firestore().collection('categories').onSnapshot((snapshot) => {
-				const category = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data()
-				}));
-				setCats(category);
-			});
+			const unsubscribe = Firebase.firestore()
+				.collection('categories')
+				.where('uid', '==', currentUser.uid)
+				.onSnapshot((snapshot) => {
+					const category = snapshot.docs.map((doc) => ({
+						id: doc.id,
+						...doc.data()
+					}));
+					setCats(category);
+				});
 			return () => {
 				unsubscribe();
 			};
@@ -66,7 +71,7 @@ export const Categories = () => {
 			value: newID,
 			text
 		};
-		// addCategory(newCat);
+
 		selectCategory(+newCat.id);
 
 		Firebase.firestore()
@@ -74,7 +79,8 @@ export const Categories = () => {
 			.add({
 				id: newCat.id,
 				text: newCat.text,
-				value: newCat.value
+				value: newCat.value,
+				uid: currentUser.uid
 			})
 			.then(() => {
 				setText('');

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../Context/GlobalState';
+import { AuthContext } from '../Firebase/Auth';
 import { ViewSelect } from '../Components/ViewSelect';
 import { Transaction } from './Transaction';
 import { TransLIhead } from './TransLIhead';
@@ -8,6 +9,7 @@ import Firebase from '../Firebase/Firebase';
 
 export const TransactionList = () => {
 	const { viewAmount, currPage, changeCurrPage } = useContext(GlobalContext);
+	const { currentUser } = useContext(AuthContext);
 	const [ sortDate, setSortDate ] = useState(true);
 	const [ sortDesc, setSortDesc ] = useState(true);
 	const orderByField = sortDate ? 'timeStmp' : 'amount';
@@ -44,6 +46,7 @@ export const TransactionList = () => {
 			() => {
 				Firebase.firestore()
 					.collection('transactions')
+					.where('uid', '==', currentUser.uid)
 					.where('catID', '==', selectedCategory)
 					.orderBy(orderByField, order)
 					.onSnapshot((dt) => {

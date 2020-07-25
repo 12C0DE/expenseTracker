@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { SubmitBtn } from './SubmitBtn';
 import { GlobalContext } from '../Context/GlobalState';
+import { AuthContext } from '../Firebase/Auth';
 
 import Firebase from '../Firebase/Firebase';
 
@@ -9,6 +10,7 @@ export const AddTransaction = () => {
 	const [ amount, setAmount ] = useState('');
 	const [ active, setActive ] = useState(false);
 	const { addTransaction, selectedCategory, toggleCatAdded, todayDate } = useContext(GlobalContext);
+	const { currentUser } = useContext(AuthContext);
 
 	const handleAmountChange = (e) => {
 		if (selectedCategory === 1) {
@@ -51,7 +53,8 @@ export const AddTransaction = () => {
 				catID: newTrans.catID,
 				text: newTrans.text,
 				transDate: todayDate,
-				timeStmp: newTrans.timeStmp
+				timeStmp: newTrans.timeStmp,
+				uid: currentUser.uid
 			})
 			.then(() => {
 				setText('');
