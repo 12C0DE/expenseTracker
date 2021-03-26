@@ -1,7 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import { withRouter, Redirect } from 'react-router';
-import Firebase from '../Firebase/Firebase';
 import { AuthContext } from '../Firebase/Auth';
+import { Link } from 'react-router-dom';
+import Firebase from '../Firebase/Firebase';
 
 const Login = ({ history }) => {
 	const handleLogin = useCallback(
@@ -15,7 +16,9 @@ const Login = ({ history }) => {
 				alert(error);
 			}
 		},
-		[ history ]
+		[
+			history
+		]
 	);
 
 	const { currentUser } = useContext(AuthContext);
@@ -25,20 +28,27 @@ const Login = ({ history }) => {
 	}
 
 	return (
-		<form className="logInDiv" onSubmit={handleLogin}>
-			<h1 id="logInTitle">Log In</h1>
-			<div id="divEmail">
-				<label>Email</label>
-				<input name="email" type="email" placeholder="Email" />
+		<React.Fragment>
+			<form className="logInDiv" onSubmit={handleLogin}>
+				<h1 id="logInTitle">Log In</h1>
+				<div id="divEmail">
+					<label>Email</label>
+					<input name="email" type="email" placeholder="Email" />
+				</div>
+				<div id="divPwd">
+					<label>Password</label>
+					<input name="password" type="password" placeholder="Password" />
+				</div>
+				<button id="logInBtn" type="submit" className="btn">
+					Log In
+				</button>
+			</form>
+			<div>
+				<h3>
+					<Link to="/signup">sign up</Link> here
+				</h3>
 			</div>
-			<div id="divPwd">
-				<label>Password</label>
-				<input name="password" type="password" placeholder="Password" />
-			</div>
-			<button id="logInBtn" type="submit" className="btn">
-				Log In
-			</button>
-		</form>
+		</React.Fragment>
 	);
 };
 

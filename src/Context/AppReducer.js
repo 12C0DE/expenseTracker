@@ -3,43 +3,51 @@ export default (state, action) => {
 		case 'DEL_TRANS':
 			return {
 				...state,
-				transactions: state.transactions.filter((transaction) => transaction.id !== action.payload)
+				transactions : state.transactions.filter((transaction) => transaction.id !== action.payload)
 			};
 		case 'ADD_TRANS':
 			return {
 				...state,
-				transactions: [ action.payload, ...state.transactions ]
+				transactions : [
+					action.payload,
+					...state.transactions
+				]
 			};
 		case 'ADD_CAT':
 			return {
 				...state,
-				categories: [ action.payload, ...state.categories ]
+				categories : [
+					action.payload,
+					...state.categories
+				]
 			};
 		case 'SEL_CAT':
 			return {
 				...state,
-				selectedCategory: action.payload
+				selectedCategory : action.payload
 			};
 		case 'SHOW_CAT':
 			return {
 				...state,
-				showCategoryAdded: action.payload
+				showCategoryAdded : action.payload
 			};
 		case 'CHANGE_VIEW':
 			return {
 				...state,
-				viewAmount: action.payload
+				viewAmount : action.payload
 			};
 		case 'CHANGE_PAGE':
 			return {
 				...state,
-				currPage: action.payload
+				currPage : action.payload
 			};
 		case 'TOGGLE_SWITCH':
 			return {
 				...state,
-				toggleSwitch: action.payload
+				toggleSwitch : action.payload
 			};
+		case 'SET_USER':
+			return { ...state, currentUser: action.payload };
 		default:
 			return state;
 	}

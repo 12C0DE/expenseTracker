@@ -1,19 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../Context/GlobalState';
+import { AuthContext } from '../Firebase/Auth';
 import Firebase from '../Firebase/Firebase';
 
 export const Balance = () => {
-	// const { transactions, selectedCategory } = useContext(GlobalContext);
 	const { selectedCategory } = useContext(GlobalContext);
 	const transactions = GetTransactions();
+	const { currentUser } = useContext(AuthContext);
 
 	function GetTransactions() {
-		const [ transactions, setTransactions ] = useState([]);
+		const [
+			transactions,
+			setTransactions
+		] = useState([]);
 
 		useEffect(() => {
-			Firebase.firestore().collection('transactions').onSnapshot((dt) => {
+			Firebase.firestore().collection('transactions').where('uid', '==', currentUser.uid).onSnapshot((dt) => {
 				const tran = dt.docs.map((doc) => ({
-					id: doc.id,
+					id : doc.id,
 					...doc.data()
 				}));
 				setTransactions(tran);

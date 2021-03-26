@@ -323,6 +323,14 @@ select {
 	grid-area: divPwd;
 }
 
+#signUpBtn {
+	height: 55px;
+}
+
+#signUpBtn:hover {
+	background-color: #3bcacf;
+}
+
 #logInBtn {
 	grid-area: logInBtn;
 }
@@ -338,6 +346,17 @@ select {
 	padding: 20px;
 }
 
+.signUpDiv {
+	margin: 0 auto;
+	height: 60vh;
+	width: 100vw;
+}
+
+.signUpDiv label,
+a {
+	padding-left: 10px;
+}
+
 .logInDiv {
 	margin: 0 auto;
 	display: grid;
@@ -347,6 +366,11 @@ select {
 	grid-template-rows: .8fr 1fr 1fr 1fr;
 	grid-template-areas: "logInTitle logInTitle logInTitle" ". divEmail ." ". divPwd ." ". logInBtn .";
 	grid-gap: 0.5rem;
+}
+
+.logInDiv label,
+a {
+	padding-left: 10px;
 }
 
 .container {
