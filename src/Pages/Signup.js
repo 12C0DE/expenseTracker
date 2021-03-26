@@ -39,7 +39,7 @@ const Signup = () => {
 			alert(err.message);
 			console.log(err.message);
 		}
-	});
+	}, []);
 
 	const { currentUser } = useContext(AuthContext);
 
