@@ -50,7 +50,7 @@ const Signup = () => {
 	return (
 		<React.Fragment>
 			<form className="signUpDiv" onSubmit={handleSignUp}>
-				<h1 id="logInTitle">Sign Up</h1>
+				<h1 id="logInTitle">Money Tracker</h1>
 				<div>
 					<label>First name</label>
 					<input name="fnameS" type="text" />

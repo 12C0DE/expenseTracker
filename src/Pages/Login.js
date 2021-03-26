@@ -30,7 +30,7 @@ const Login = ({ history }) => {
 	return (
 		<React.Fragment>
 			<form className="logInDiv" onSubmit={handleLogin}>
-				<h1 id="logInTitle">Log In</h1>
+				<h1 id="logInTitle">Money Tracker</h1>
 				<div id="divEmail">
 					<label>Email</label>
 					<input name="email" type="email" placeholder="Email" />
